@@ -1,10 +1,6 @@
 package com.mst.semillero.tallerrcon.service;
 
-
-import com.mst.semillero.tallerrcon.dto.Animal;
-import com.mst.semillero.tallerrcon.dto.AnimalProvider;
-import com.mst.semillero.tallerrcon.dto.Gato;
-import com.mst.semillero.tallerrcon.dto.Perro;
+import com.mst.semillero.tallerrcon.dto.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -28,7 +24,8 @@ public class AnimalServiceTest {
     @Test
     void testObtenerAnimalPerro() {
         // Configurar mock para devolver un Perro
-        when(animalProvider.crearAnimal("perro")).thenReturn(new Perro("Cremita"));
+        when(animalProvider.crearAnimal("perro")).thenReturn(
+            new Perro("Cremita", "Golden", "blanco con dorado", 10, "hembra"));
         // Llamar al método y verificar el resultado
         Animal animal = animalService.obtenerAnimal("perro");
         assertNotNull(animal);
@@ -41,7 +38,8 @@ public class AnimalServiceTest {
     @Test
     void testObtenerAnimalGato() {
         // Configurar mock para devolver un gato
-        when(animalProvider.crearAnimal("gato")).thenReturn(new Gato("Eclipse"));
+        when(animalProvider.crearAnimal("gato")).thenReturn(
+            new Gato("Eclipse", "criollo", "negro", 3, "macho"));
         // Llamar al método y verificar el resultado
         Animal animal = animalService.obtenerAnimal("gato");
         assertNotNull(animal);
@@ -52,13 +50,43 @@ public class AnimalServiceTest {
     }
 
     @Test
+    void testObtenerAnimalConejo() {
+        // Configurar mock para devolver un conejo
+        when(animalProvider.crearAnimal("conejo")).thenReturn(
+            new Conejo("Bunny", "criollo", "blanco con gris", 2, "macho"));
+        // Llamar al método y verificar el resultado
+        Animal animal = animalService.obtenerAnimal("conejo");
+        assertNotNull(animal);
+        assertEquals("Bunny", animal.getNombre());
+        assertEquals("zzzzz", animal.hacerSonido());
+        // Verificar interacción con el mock
+        verify(animalProvider).crearAnimal("conejo");
+    }
+
+    @Test
     void testObtenerAnimalTipoDesconocido() {
         // Configurar mock para lanzar una excepción
-        when(animalProvider.crearAnimal("pajaro")).thenThrow(new IllegalArgumentException("Tipo desconocido: pajaro"));
+        when(animalProvider.crearAnimal("pajaro")).thenThrow(new IllegalStateException("Unexpected value: pajaro"));
         // Verificar que se lanza la excepción
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> animalService.obtenerAnimal("pajaro"));
-        assertEquals("Tipo desconocido: pajaro", exception.getMessage());
+        Exception exception = assertThrows(IllegalStateException.class, () -> animalService.obtenerAnimal("pajaro"));
+        assertEquals("Unexpected value: pajaro", exception.getMessage());
         // Verificar interacción con el mock
         verify(animalProvider).crearAnimal("pajaro");
+    }
+
+    @Test
+    void testCrearAnimalPost() {
+        // Crear request
+        TipoAnimalRequest request = new TipoAnimalRequest("perro");
+        // Configurar mock para devolver un Perro
+        when(animalProvider.crearAnimal("perro")).thenReturn(
+            new Perro("Cremita", "Golden", "blanco con dorado", 10, "hembra"));
+        // Llamar al método y verificar el resultado
+        Animal animal = animalService.crearAnimal(request);
+        assertNotNull(animal);
+        assertEquals("Cremita", animal.getNombre());
+        assertEquals("Guau", animal.hacerSonido());
+        // Verificar interacción con el mock
+        verify(animalProvider).crearAnimal("perro");
     }
 }

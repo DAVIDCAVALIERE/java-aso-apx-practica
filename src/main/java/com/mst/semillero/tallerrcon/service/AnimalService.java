@@ -2,6 +2,7 @@ package com.mst.semillero.tallerrcon.service;
 
 import com.mst.semillero.tallerrcon.dto.Animal;
 import com.mst.semillero.tallerrcon.dto.AnimalProvider;
+import com.mst.semillero.tallerrcon.dto.TipoAnimalRequest;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import org.springframework.stereotype.Service;
@@ -23,5 +24,11 @@ public class AnimalService {
     @Path("/{tipo}") //Ruta del endpoint de la operación
     public Animal obtenerAnimal(@PathParam("tipo") String tipo) {
         return animalProvider.crearAnimal(tipo);
+    }
+
+    // Nuevo endpoint POST que recibe un JSON con el tipo de animal y responde con el animal correspondiente
+    @POST
+    public Animal crearAnimal(TipoAnimalRequest request) {
+        return animalProvider.crearAnimal(request.getTipo());
     }
 }

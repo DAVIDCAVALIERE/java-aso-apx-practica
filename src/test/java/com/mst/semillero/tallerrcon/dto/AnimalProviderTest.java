@@ -28,6 +28,16 @@ public class AnimalProviderTest {
         assertEquals("Eclipse", animal.getNombre());
         assertEquals("Miau", animal.hacerSonido());
     }
+    @Test
+    public void testCrearAnimalConejo() {
+        AnimalProvider provider = new AnimalProvider();
+        Animal animal = provider.crearAnimal("conejo");
+
+        // Verificar que es un Gato y sus propiedades
+        assertTrue(animal instanceof Conejo);
+        assertEquals("Bunny", animal.getNombre());
+        assertEquals("zzzzz", animal.hacerSonido());
+    }
 
     @Test
     public void testCrearAnimalDesconocido() {
