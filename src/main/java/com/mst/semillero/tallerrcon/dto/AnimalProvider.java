@@ -2,8 +2,6 @@ package com.mst.semillero.tallerrcon.dto;
 
 import org.springframework.stereotype.Component;
 
-import java.util.Locale;
-
 @Component
 public class AnimalProvider {
     public Animal crearAnimal(String tipo) {

@@ -101,9 +101,13 @@
 						</goals>
 						<configuration>
 							<excludes>
-								<exclude>**/TallherrconApplication.class</exclude>
+								<exclude>
+									**/TallerrconApplication.class
+								</exclude>
 								<!-- Excluye el iniciador de Spring Boot -->
-								<exclude>**/*Config.class</exclude>
+								<exclude>
+									**/*Config.class
+								</exclude>
 								<!-- Excluye clases de configuración, deben tener el sufijo Config -->
 							</excludes>
 						</configuration>

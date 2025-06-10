@@ -1,7 +1,7 @@
 package com.mst.semillero.tallerrcon.dto;
 
 public abstract class Animal {
-    private String nombre;
+    private final String nombre;
 
     public Animal (String nombre) {
         this.nombre = nombre;
