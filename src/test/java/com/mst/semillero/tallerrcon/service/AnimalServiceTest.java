@@ -3,6 +3,7 @@ package com.mst.semillero.tallerrcon.service;
 
 import com.mst.semillero.tallerrcon.dto.Animal;
 import com.mst.semillero.tallerrcon.dto.AnimalProvider;
+import com.mst.semillero.tallerrcon.dto.Gato;
 import com.mst.semillero.tallerrcon.dto.Perro;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,14 +28,27 @@ public class AnimalServiceTest {
     @Test
     void testObtenerAnimalPerro() {
         // Configurar mock para devolver un Perro
-        when(animalProvider.crearAnimal("perro")).thenReturn(new Perro("Fido"));
+        when(animalProvider.crearAnimal("perro")).thenReturn(new Perro("Cremita"));
         // Llamar al método y verificar el resultado
         Animal animal = animalService.obtenerAnimal("perro");
         assertNotNull(animal);
-        assertEquals("Fido", animal.getNombre());
+        assertEquals("Cremita", animal.getNombre());
         assertEquals("Guau", animal.hacerSonido());
         // Verificar interacción con el mock
         verify(animalProvider).crearAnimal("perro");
+    }
+
+    @Test
+    void testObtenerAnimalGato() {
+        // Configurar mock para devolver un gato
+        when(animalProvider.crearAnimal("gato")).thenReturn(new Gato("Eclipse"));
+        // Llamar al método y verificar el resultado
+        Animal animal = animalService.obtenerAnimal("gato");
+        assertNotNull(animal);
+        assertEquals("Eclipse", animal.getNombre());
+        assertEquals("Miau", animal.hacerSonido());
+        // Verificar interacción con el mock
+        verify(animalProvider).crearAnimal("gato");
     }
 
     @Test
